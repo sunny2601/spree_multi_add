@@ -1,3 +1,7 @@
 /*
  *= require store/spree_frontend
 */
+
+input.multi_add_number_input {
+	width: 75px
+}
