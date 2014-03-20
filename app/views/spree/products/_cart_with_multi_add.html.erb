@@ -4,8 +4,7 @@
 		<% @product.variants_and_option_values(current_currency).each_with_index do |variant, index| %>
 			<li>
 
-				<% variant_prefix = "variant[#{variant.id}]" %>
-				<%= number_field_tag "#{variant_prefix}[quantity]", 0, :class => 'multi_add_number_input', :min => 0%>
+				<%= number_field_tag "variants[#{variant.id}]", 0, :class => 'multi_add_number_input', :min => 0%>
 				<%= label_tag "variant_id" do %>
 					<span class="variant-description">
 						<%= variant_options variant %>
