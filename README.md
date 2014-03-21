@@ -23,10 +23,17 @@ Testing
 -------
 
 Be sure to bundle your dependencies and then create a dummy test app for the specs to run against.
+There is a bug in the test app so any view decorators needs to be precompiled
+each time they change. Otherwise it's enough to run rake test_app and rspec
+spec.
+
 
 ```shell
 bundle
-bundle exec rake test_app
+bundle exec rake test_app 
+cd spec/dummy/; 
+bundle exec rake deface:precompile
+cd ../../
 bundle exec rspec spec
 ```
 

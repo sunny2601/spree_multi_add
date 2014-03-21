@@ -88,5 +88,5 @@ RSpec.configure do |config|
 
   config.fail_fast = ENV['FAIL_FAST'] || false
 
-  #Capybara.javascript_driver = :poltergeist 
+  Capybara.javascript_driver = :poltergeist
 end
