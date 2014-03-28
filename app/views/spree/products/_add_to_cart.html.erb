@@ -1,0 +1,15 @@
+
+
+<div class="add-to-cart">
+
+	<% if !@product.variants_and_option_values(current_currency).any? %>
+
+		<%= number_field_tag (@product.variants_and_option_values.any? ? :quantity : "variants[#{@product.master.id}]"),
+			0, :class => 'title', :min => 0 %>
+
+	<% end %>
+
+		<%= button_tag :class => 'large primary', :id => 'add-to-cart-button', :type => :submit do %>
+			<%= Spree.t(:add_to_cart) %>
+		<% end %>
+</div>

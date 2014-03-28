@@ -6,7 +6,9 @@ Deface::Override.new(:virtual_path => "spree/products/_cart_form",
                      :partial => "spree/products/cart_with_multi_add")
 
 
-# Override for only showing the "Add to cart"-button below the multi-add feature.
+
+# Override for showing the quantity field at the "Add to cart"-button when there are no variants
 Deface::Override.new(:virtual_path => "spree/products/_cart_form",
-                     :name => "add_multi_add_button",
-                     :remove => "div.add-to-cart erb[loud]:contains('number_field_tag')")
+                     :name => "hide_quantity_field",
+                     :replace => "div.add-to-cart",
+                     :partial => "spree/products/add_to_cart")

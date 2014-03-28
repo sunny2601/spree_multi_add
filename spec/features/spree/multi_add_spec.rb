@@ -44,9 +44,39 @@ feature "Add multiple variants to cart", js: true do
   end
 
 
-  scenario "Singe product with no variants"
+  scenario "Single product with no variants should have one quantity fields set to zero" do
+
+    product = create(:product)
+    visit spree.product_path(product)
+
+    # Default value should be zero (chosen products)
+    page.should have_selector("div.add-to-cart input[value='0']", :count => 1)
+  end
 
 
+  scenario "Buy product with no variants" do
 
+    product = create(:product)
+    visit spree.product_path(product)
+
+    within("div.add-to-cart") do
+      fill_in "variants_#{product.master.id}", :with => "10"
+      click_button("Add To Cart")
+    end
+
+    # Verify that we are on the correct page
+    page.should have_content("Shopping Cart")
+
+    # Should have 1 product but with two different variants
+    within("#cart-detail") do
+      page.should have_selector("tr.line-item", :count => 1)
+    end
+
+    # Verify quantity
+    within("#cart-detail") do
+      page.should have_selector("input[value='10']", :count => 1)
+    end
+
+  end
 
 end
