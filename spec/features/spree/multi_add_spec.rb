@@ -79,4 +79,30 @@ feature "Add multiple variants to cart", js: true do
 
   end
 
+  # For bug #1
+  scenario "Product page should show first variants image" do
+
+    image1 = File.open(File.expand_path('../../../fixtures/1.jpg', __FILE__))
+    image2 = File.open(File.expand_path('../../../fixtures/2.jpg', __FILE__))
+    product = create(:product, :variants => [create(:variant), create(:variant),create(:variant)])
+    product.variants.first.images.create!(:attachment => image1)
+    product.variants.last.images.create!(:attachment => image2)
+
+
+    visit spree.product_path(product)
+
+    within("#main-image") do
+      filename = product.variants.first.images.first.attachment_file_name
+      page.should have_xpath("//img[contains(@src, '#{filename}')]")
+    end
+
+    within("#product-variants") do
+      find("#variants_#{product.variants.last.id}").click
+
+      filename = product.variants.last.images.first.attachment_file_name
+      page.should have_xpath("//img[contains(@src, '#{filename}')]")
+    end
+
+  end
+
 end
